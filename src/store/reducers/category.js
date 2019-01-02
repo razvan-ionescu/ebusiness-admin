@@ -33,7 +33,10 @@ export default createReducer(
     [categoryActions.deleteCategorySuccess]: (state, payload) => ({
       ...state,
       categories: state.categories.filter(item => item.id !== payload),
-      currentCategory: null
+      currentCategory: {
+        name: '',
+        description: ''
+      }
     })
   },
   initialState

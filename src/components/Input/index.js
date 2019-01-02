@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Textarea from './Textarea';
+
 const input = props => {
   const addons = props.leftAddon || props.rightAddon ? 'has-addons' : '';
   const addonsAlignment = props.addonAlignment
@@ -9,8 +11,8 @@ const input = props => {
   const label = props.label ? (
     <label className={`label ${size}`}>{props.label}</label>
   ) : (
-      ''
-    );
+    ''
+  );
   const iconLeft = props.iconLeft ? 'has-icons-left' : '';
   const iconRight = props.iconRight ? 'has-icons-right' : '';
   const error = props.error ? 'is-danger' : '';
@@ -45,4 +47,5 @@ const input = props => {
   );
 };
 
+input.Textarea = Textarea;
 export default input;

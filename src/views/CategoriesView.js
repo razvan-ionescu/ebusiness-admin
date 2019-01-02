@@ -9,7 +9,7 @@ import Button from '../components/Button';
 
 import AppHOC from '../hoc/AppHOC';
 
-// import CategoryForm from '../containers/CategoryForm';
+import CategoryForm from '../containers/CategoryForm';
 
 class CategoriesView extends Component {
   state = {
@@ -21,7 +21,7 @@ class CategoriesView extends Component {
   }
 
   openModal = async currentCategory => {
-    if (currentCategory.id) await this.props.getProduct(currentCategory.id);
+    if (currentCategory.id) await this.props.getCategory(currentCategory.id);
     this.setState({
       modalVisible: true
     });
@@ -35,10 +35,18 @@ class CategoriesView extends Component {
 
   render() {
     let tableBody = this.props.categories.length ? (
-      <p>ceva</p>
+      this.props.categories.map(item => (
+        <Table.Row key={item.id}>
+          <Table.Cell>{item.name}</Table.Cell>
+          <Table.Cell>{item.description}</Table.Cell>
+          <Table.Cell>
+            <Table.Actions editAction={() => this.openModal(item)} />
+          </Table.Cell>
+        </Table.Row>
+      ))
     ) : (
       <Table.Row>
-        <Table.Cell colSpan={7}>
+        <Table.Cell colSpan={3}>
           <p className="has-text-centered">No categories to display.</p>
         </Table.Cell>
       </Table.Row>
@@ -73,23 +81,21 @@ class CategoriesView extends Component {
             <Table.Row>
               <Table.HeaderCell>Name</Table.HeaderCell>
               <Table.HeaderCell>Description</Table.HeaderCell>
+              <Table.HeaderCell>Actions</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>{tableBody}</Table.Body>
         </Table>
+        {this.state.modalVisible ? (
+          <CategoryForm
+            visible={this.state.modalVisible}
+            actionCancel={this.closeModal}
+          />
+        ) : null}
       </div>
     );
   }
 }
-
-// {
-//   this.state.modalVisible ? (
-//     <ProductForm
-//       visible={this.state.modalVisible}
-//       actionCancel={this.closeModal}
-//     />
-//   ) : null
-// }
 
 const mapStateToProps = state => ({
   currentCategory: state.category.currentCategory,

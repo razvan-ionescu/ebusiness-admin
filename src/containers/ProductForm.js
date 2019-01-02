@@ -88,7 +88,10 @@ class ProductForm extends Component {
           <Select
             loading={this.props.categoryLoading}
             value={this.props.values.categoryId}
-            options={this.props.categories}
+            options={this.props.categories.map(item => ({
+              label: item.name,
+              value: item.id
+            }))}
             onChange={e =>
               this.props.setFieldValue('categoryId', e.target.value)
             }

@@ -20,6 +20,8 @@ const Modal = props =>
         {props.children}
         <div className="modal-card-foot">
           <Button
+            loading={props.modalLoading}
+            disabled={props.modalDisabled}
             type="success"
             text={props.successText}
             onClick={props.actionSuccess}

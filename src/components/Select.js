@@ -8,7 +8,7 @@ const select = props => {
         <option value="">None</option>
         {props.options.length
           ? props.options.map(item => (
-              <option value={item.value} key={item.value}>
+              <option key={item.value} value={item.value}>
                 {item.label}
               </option>
             ))
