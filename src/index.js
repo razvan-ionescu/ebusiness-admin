@@ -1,13 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import 'bulma/css/bulma.min.css';
 import * as serviceWorker from './serviceWorker';
+
+import './lib/fontAwesome';
 
 import { Provider } from 'react-redux';
 
 import configureStore from './store';
 
+import {
+  sagaMiddleware,
+  authSaga,
+  productSaga,
+  categorySaga
+} from './store/sagas';
+
 export const store = configureStore(); // eslint-disable-line
+
+sagaMiddleware.run(authSaga);
+sagaMiddleware.run(productSaga);
+sagaMiddleware.run(categorySaga);
 
 ReactDOM.render(
   React.createElement(() => (

@@ -22,11 +22,36 @@ const create = (baseURL = process.env.REACT_APP_API_URL) => {
   );
 
   const postLogin = loginObj => api.post('/login', loginObj);
-  const postRegister = registerObj => api.post('/register', registerObj);
+  const getOrders = () => api.get('/orders');
+  const getProducts = () => api.get('/products');
+  const getProduct = id => api.get(`/products/${id}`);
+  const patchProduct = (id, productObj) =>
+    api.patch(`/products/${id}`, productObj);
+  const deleteProduct = id => api.delete(`/products/${id}`);
+  const postProduct = productObj => api.post('/products');
+  const postProductImage = (id, imageObj) =>
+    api.post(`/products/${id}/image`, imageObj);
+  const getCategories = () => api.get('/categories');
+  const getCategory = id => api.get(`/categories/${id}`);
+  const postCategory = categoryObj => api.post('/categories', categoryObj);
+  const patchCategory = (id, categoryObj) =>
+    api.patch(`/categories/${id}`, categoryObj);
+  const deleteCategory = id => api.delete(`/categories/${id}`);
 
   return {
     postLogin,
-    postRegister
+    getOrders,
+    getProduct,
+    getProducts,
+    deleteProduct,
+    postProduct,
+    patchProduct,
+    postProductImage,
+    getCategories,
+    getCategory,
+    postCategory,
+    patchCategory,
+    deleteCategory
   };
 };
 
