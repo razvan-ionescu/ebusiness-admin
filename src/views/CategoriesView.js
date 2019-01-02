@@ -13,23 +13,36 @@ import CategoryForm from '../containers/CategoryForm';
 
 class CategoriesView extends Component {
   state = {
-    modalVisible: false
+    modalVisible: false,
+    currentCategory: {
+      name: '',
+      description: ''
+    }
   };
 
   componentDidMount() {
     this.props.getCategories();
   }
 
-  openModal = async currentCategory => {
-    if (currentCategory.id) await this.props.getCategory(currentCategory.id);
+  openModal = (
+    currentCategory = {
+      name: '',
+      description: ''
+    }
+  ) => {
     this.setState({
-      modalVisible: true
+      modalVisible: true,
+      currentCategory
     });
   };
 
   closeModal = () => {
     this.setState({
-      modalVisible: false
+      modalVisible: false,
+      currentCategory: {
+        name: '',
+        description: ''
+      }
     });
   };
 
@@ -72,7 +85,6 @@ class CategoriesView extends Component {
           <Button
             text="Add Category"
             type="primary"
-            loading={this.props.modalLoading}
             onClick={() => this.openModal(this.props.currentCategory)}
           />
         </div>
@@ -90,6 +102,7 @@ class CategoriesView extends Component {
           <CategoryForm
             visible={this.state.modalVisible}
             actionCancel={this.closeModal}
+            currentCategory={this.state.currentCategory}
           />
         ) : null}
       </div>
@@ -98,10 +111,8 @@ class CategoriesView extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentCategory: state.category.currentCategory,
   categories: state.category.categories,
-  loading: createLoadingSelector(['GET_CATEGORIES'])(state),
-  modalLoading: createLoadingSelector(['GET_CATEGORY'])(state)
+  loading: createLoadingSelector(['GET_CATEGORIES'])(state)
 });
 
 const mapDispatchToProps = dispatch => ({

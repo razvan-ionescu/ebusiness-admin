@@ -69,7 +69,6 @@ class CategoryForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentCategory: state.category.currentCategory,
   categoryLoading: createLoadingSelector([
     'UPDATE_CATEGORY',
     'ADD_CATEGORY',
