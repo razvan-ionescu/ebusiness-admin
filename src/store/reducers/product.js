@@ -3,7 +3,8 @@ import { createReducer } from 'redux-act';
 import { productActions } from '../actions';
 
 const initialState = {
-  products: []
+  products: [],
+  currentProduct: null
 };
 
 export default createReducer(
