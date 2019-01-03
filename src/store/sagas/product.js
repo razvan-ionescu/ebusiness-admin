@@ -22,20 +22,29 @@ export function* getProduct(api, object) {
 }
 
 export function* postProduct(api, object) {
-  yield put(productActions.postProductRequest());
+  yield put(productActions.addProductRequest());
   try {
+    const imageFormData = new FormData();
+    const image = object.payload.image;
+    delete object.payload.image;
+    imageFormData.append('product', image);
     const response = yield call(api.postProduct, object.payload);
-    yield put(productActions.postProductSuccess(response.data));
+    const imageResponse = yield call(
+      api.postProductImage,
+      response.data.id,
+      imageFormData
+    );
+    yield put(productActions.addProductSuccess(imageResponse.data));
   } catch (e) {
-    yield put(productActions.postProductFailure(e));
+    yield put(productActions.addProductFailure(e));
   }
 }
 
 export function* deleteProduct(api, object) {
   yield put(productActions.deleteProductRequest());
   try {
-    yield call(api.deleteProduct, object.payload.id);
-    yield put(productActions.deleteProductSuccess(object.payload.id));
+    yield call(api.deleteProduct, object.payload);
+    yield put(productActions.deleteProductSuccess(object.payload));
   } catch (e) {
     yield put(productActions.deleteProductFailure(e));
   }

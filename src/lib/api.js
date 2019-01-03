@@ -28,9 +28,13 @@ const create = (baseURL = process.env.REACT_APP_API_URL) => {
   const patchProduct = (id, productObj) =>
     api.patch(`/products/${id}`, productObj);
   const deleteProduct = id => api.delete(`/products/${id}`);
-  const postProduct = productObj => api.post('/products');
+  const postProduct = productObj => api.post('/products', productObj);
   const postProductImage = (id, imageObj) =>
-    api.post(`/products/${id}/image`, imageObj);
+    api.post(`/products/${id}/image`, imageObj, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   const getCategories = () => api.get('/categories');
   const getCategory = id => api.get(`/categories/${id}`);
   const postCategory = categoryObj => api.post('/categories', categoryObj);

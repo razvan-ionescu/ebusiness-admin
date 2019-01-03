@@ -10,10 +10,12 @@ import Button from '../components/Button';
 import AppHOC from '../hoc/AppHOC';
 
 import CategoryForm from '../containers/CategoryForm';
+import DeleteModal from '../components/DeleteModal';
 
 class CategoriesView extends Component {
   state = {
     modalVisible: false,
+    deleteModalVisible: false,
     currentCategory: {
       name: '',
       description: ''
@@ -23,6 +25,28 @@ class CategoriesView extends Component {
   componentDidMount() {
     this.props.getCategories();
   }
+
+  closeDeleteModal = () => {
+    this.setState({
+      deleteModalVisible: false,
+      currentCategory: {
+        name: '',
+        description: ''
+      }
+    });
+  };
+
+  deleteCategory = () => {
+    this.props.deleteCategory(this.state.currentCategory.id);
+    this.closeDeleteModal();
+  };
+
+  openDeleteModal = currentCategory => {
+    this.setState({
+      deleteModalVisible: true,
+      currentCategory
+    });
+  };
 
   openModal = (
     currentCategory = {
@@ -53,7 +77,10 @@ class CategoriesView extends Component {
           <Table.Cell>{item.name}</Table.Cell>
           <Table.Cell>{item.description}</Table.Cell>
           <Table.Cell>
-            <Table.Actions editAction={() => this.openModal(item)} />
+            <Table.Actions
+              editAction={() => this.openModal(item)}
+              deleteAction={() => this.openDeleteModal(item)}
+            />
           </Table.Cell>
         </Table.Row>
       ))
@@ -105,6 +132,14 @@ class CategoriesView extends Component {
             currentCategory={this.state.currentCategory}
           />
         ) : null}
+        {this.state.deleteModalVisible ? (
+          <DeleteModal
+            visible={this.state.deleteModalVisible}
+            name="category"
+            actionOk={() => this.deleteCategory()}
+            actionCancel={this.closeDeleteModal}
+          />
+        ) : null}
       </div>
     );
   }
@@ -117,7 +152,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getCategories: () => dispatch(categoryActions.getCategories()),
-  getCategory: id => dispatch(categoryActions.getCategory(id))
+  getCategory: id => dispatch(categoryActions.getCategory(id)),
+  deleteCategory: id => dispatch(categoryActions.deleteCategory(id))
 });
 
 export default connect(

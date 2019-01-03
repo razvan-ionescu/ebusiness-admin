@@ -69,17 +69,14 @@ class CategoryForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  categoryLoading: createLoadingSelector([
-    'UPDATE_CATEGORY',
-    'ADD_CATEGORY',
-    'DELETE_CATEGORY'
-  ])(state)
+  categoryLoading: createLoadingSelector(['UPDATE_CATEGORY', 'ADD_CATEGORY'])(
+    state
+  )
 });
 
 const mapDispatchToProps = dispatch => ({
   updateCategory: (id, categoryObj) =>
     dispatch(categoryActions.updateCategory(id, categoryObj)),
-  deleteCategory: id => dispatch(categoryActions.deleteCategory(id)),
   postCategory: categoryObj =>
     dispatch(categoryActions.postCategory(categoryObj))
 });

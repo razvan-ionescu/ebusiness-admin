@@ -15,8 +15,8 @@ const router = () => (
     <Switch>
       <Route path="/login" component={Login} />
       <PrivateRoute exact path="/" component={OrdersView} />
-      <PrivateRoute exact path="/products" component={ProductsView} />
-      <PrivateRoute exact path="/categories" component={CategoriesView} />
+      <PrivateRoute path="/products" component={ProductsView} />
+      <PrivateRoute path="/categories" component={CategoriesView} />
     </Switch>
   </Router>
 );

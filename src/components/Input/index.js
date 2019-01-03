@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Textarea from './Textarea';
+import FileInput from './File';
 
 const input = props => {
   const addons = props.leftAddon || props.rightAddon ? 'has-addons' : '';
@@ -48,4 +49,5 @@ const input = props => {
 };
 
 input.Textarea = Textarea;
+input.File = FileInput;
 export default input;

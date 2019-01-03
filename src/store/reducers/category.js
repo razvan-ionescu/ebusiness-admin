@@ -3,11 +3,7 @@ import { createReducer } from 'redux-act';
 import { categoryActions } from '../actions';
 
 const initialState = {
-  categories: [],
-  currentCategory: {
-    name: '',
-    description: ''
-  }
+  categories: []
 };
 
 export default createReducer(
@@ -19,6 +15,10 @@ export default createReducer(
     [categoryActions.getCategorySuccess]: (state, payload) => ({
       ...state,
       currentCategory: { ...payload }
+    }),
+    [categoryActions.postCategorySuccess]: (state, payload) => ({
+      ...state,
+      categories: [...state.categories, payload]
     }),
     [categoryActions.updateCategorySuccess]: (state, payload) => ({
       ...state,
@@ -32,11 +32,7 @@ export default createReducer(
     }),
     [categoryActions.deleteCategorySuccess]: (state, payload) => ({
       ...state,
-      categories: state.categories.filter(item => item.id !== payload),
-      currentCategory: {
-        name: '',
-        description: ''
-      }
+      categories: state.categories.filter(item => item.id !== payload)
     })
   },
   initialState

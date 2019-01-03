@@ -6,7 +6,7 @@ const appHOC = WrappedComponent =>
   class extends Component {
     render() {
       return (
-        <div className="has-background-light">
+        <div style={{ minHeight: '100vh' }} className="has-background-light">
           <Header />
           <div className="container">
             <WrappedComponent {...this.props} />

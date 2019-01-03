@@ -10,32 +10,112 @@ import Button from '../components/Button';
 import AppHOC from '../hoc/AppHOC';
 
 import ProductForm from '../containers/ProductForm';
+import DeleteModal from '../components/DeleteModal';
 
 class ProductsView extends Component {
   state = {
-    modalVisible: false
+    modalVisible: false,
+    currentProduct: {
+      name: '',
+      categoryId: '',
+      author: '',
+      stock: 0,
+      price: 0.0,
+      description: '',
+      image: null
+    },
+    deleteModalVisible: false
   };
 
   componentDidMount() {
     this.props.getProducts();
   }
 
-  openModal = async currentProduct => {
-    if (currentProduct.id) await this.props.getProduct(currentProduct.id);
+  closeDeleteModal = () => {
     this.setState({
-      modalVisible: true
+      deleteModalVisible: false,
+      currentProduct: {
+        name: '',
+        categoryId: '',
+        author: '',
+        stock: 0,
+        price: 0.0,
+        description: '',
+        image: null
+      }
+    });
+  };
+
+  deleteProduct = () => {
+    this.props.deleteProduct(this.state.currentProduct.id);
+    this.closeDeleteModal();
+  };
+
+  openDeleteModal = currentProduct => {
+    this.setState({
+      deleteModalVisible: true,
+      currentProduct
+    });
+  };
+
+  openModal = (
+    currentProduct = {
+      name: '',
+      categoryId: '',
+      author: '',
+      stock: 0,
+      price: 0.0,
+      description: '',
+      image: null
+    }
+  ) => {
+    this.setState({
+      modalVisible: true,
+      currentProduct
     });
   };
 
   closeModal = () => {
     this.setState({
-      modalVisible: false
+      modalVisible: false,
+      currentProduct: {
+        name: '',
+        categoryId: '',
+        author: '',
+        stock: 0,
+        price: 0.0,
+        description: '',
+        image: null
+      }
     });
   };
 
   render() {
     let tableBody = this.props.products.length ? (
-      <p>ceva</p>
+      this.props.products.map(item => (
+        <Table.Row key={item.id}>
+          <Table.Cell>
+            <figure className="image is-128x128">
+              <img
+                src={`${process.env.REACT_APP_API_URL}/${item.image}`}
+                alt={item.name}
+              />
+            </figure>
+          </Table.Cell>
+          <Table.Cell>{item.name}</Table.Cell>
+          <Table.Cell>{item.description}</Table.Cell>
+          <Table.HeaderCell>{item.author}</Table.HeaderCell>
+          <Table.HeaderCell>{item.category}</Table.HeaderCell>
+          <Table.HeaderCell>{item.stock}</Table.HeaderCell>
+          <Table.HeaderCell>{item.price}</Table.HeaderCell>
+          <Table.Cell>
+            <Table.Actions
+              editAction={() => this.openModal(item)}
+              deleteAction={() => this.openDeleteModal(item)}
+            />
+          </Table.Cell>
+        </Table.Row>
+      ))
     ) : (
       <Table.Row>
         <Table.Cell colSpan={7}>
@@ -65,7 +145,7 @@ class ProductsView extends Component {
             text="Add Product"
             type="primary"
             loading={this.props.modalLoading}
-            onClick={() => this.openModal(this.props.currentProduct)}
+            onClick={() => this.openModal(this.state.currentProduct)}
           />
         </div>
         <Table>
@@ -87,6 +167,15 @@ class ProductsView extends Component {
           <ProductForm
             visible={this.state.modalVisible}
             actionCancel={this.closeModal}
+            currentProduct={this.state.currentProduct}
+          />
+        ) : null}
+        {this.state.deleteModalVisible ? (
+          <DeleteModal
+            visible={this.state.deleteModalVisible}
+            name="product"
+            actionOk={() => this.deleteProduct()}
+            actionCancel={this.closeDeleteModal}
           />
         ) : null}
       </div>
@@ -103,7 +192,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getProducts: () => dispatch(productActions.getProducts()),
-  getProduct: id => dispatch(productActions.getProduct(id))
+  getProduct: id => dispatch(productActions.getProduct(id)),
+  deleteProduct: id => dispatch(productActions.deleteProduct(id))
 });
 
 export default connect(

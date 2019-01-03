@@ -15,21 +15,27 @@ const enhancer = withFormik({
   mapPropsToValues: props => ({
     name: props.currentProduct.name || '',
     author: props.currentProduct.author || '',
+    description: props.currentProduct.description || '',
     stock: props.currentProduct.stock || '',
     categoryId: props.currentProduct.categoryId || '',
-    description: props.currentProduct.description || '',
-    price: props.currentProduct.price || ''
+    price: props.currentProduct.price || '',
+    image: props.currentProduct.image || null
   }),
   validationSchema: yup.object({
     name: yup.string().required(),
     author: yup.string().required(),
     stock: yup.number().required(),
+    description: yup.string().required(),
     categoryId: yup.string().required(),
     price: yup.number().required()
   }),
-  handleSubmit: (values, { props, resetForm }) => {
+  handleSubmit: async (values, { props, resetForm }) => {
+    if (props.currentProduct.id) await props.updateProduct({ ...values });
+    else await props.postProduct({ ...values });
     resetForm();
-  }
+    props.actionCancel();
+  },
+  enableReinitialize: true
 });
 
 class ProductForm extends Component {
@@ -69,6 +75,13 @@ class ProductForm extends Component {
             label="Author"
             type="text"
           />
+          <Input.Textarea
+            error={this.props.errors.description}
+            value={this.props.values.description}
+            onChange={this.props.handleChange('description')}
+            placeholder="Product description"
+            label="Product description"
+          />
           <Input
             error={this.props.errors.stock}
             value={this.props.values.stock}
@@ -96,6 +109,13 @@ class ProductForm extends Component {
               this.props.setFieldValue('categoryId', e.target.value)
             }
           />
+          {!this.props.currentProduct.id ? (
+            <Input.File
+              onChange={e =>
+                this.props.setFieldValue('image', e.target.files[0])
+              }
+            />
+          ) : null}
         </Modal.Content>
       </Modal>
     );
@@ -104,7 +124,6 @@ class ProductForm extends Component {
 
 const mapStateToProps = state => ({
   categories: state.category.categories,
-  currentProduct: state.product.currentProduct,
   categoryLoading: createLoadingSelector(['GET_CATEGORIES'])(state),
   productLoading: createLoadingSelector([
     'UPDATE_PRODUCT',

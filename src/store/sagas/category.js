@@ -34,8 +34,8 @@ export function* postCategory(api, object) {
 export function* deleteCategory(api, object) {
   yield put(categoryActions.deleteCategoryRequest());
   try {
-    yield call(api.deleteCategory, object.payload.id);
-    yield put(categoryActions.deleteCategorySuccess(object.payload.id));
+    yield call(api.deleteCategory, object.payload);
+    yield put(categoryActions.deleteCategorySuccess(object.payload));
   } catch (e) {
     yield put(categoryActions.deleteCategoryFailure(e));
   }
