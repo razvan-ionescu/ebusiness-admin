@@ -5,7 +5,13 @@ import api from '../../lib/api';
 import * as auth from './auth';
 import * as product from './product';
 import * as category from './category';
-import { authTypes, productTypes, categoryTypes } from '../actionTypes';
+import * as order from './order';
+import {
+  authTypes,
+  productTypes,
+  categoryTypes,
+  orderTypes
+} from '../actionTypes';
 
 const API = api();
 
@@ -38,7 +44,15 @@ function* watchCategories() {
   ]);
 }
 
+function* watchOrders() {
+  yield all([
+    takeLatest(orderTypes.GET_ORDERS, order.getOrders, API),
+    takeLatest(orderTypes.PATCH_ORDER, order.patchOrder, API)
+  ]);
+}
+
 export const sagaMiddleware = createSagaMiddleware();
 export const authSaga = watchAuth;
 export const productSaga = watchProduct;
 export const categorySaga = watchCategories;
+export const orderSaga = watchOrders;

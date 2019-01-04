@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { productActions } from '../store/actions';
+import { productActions, categoryActions } from '../store/actions';
 import { createLoadingSelector } from '../store/selectors';
 
 import Table from '../components/Table';
@@ -28,6 +28,7 @@ class ProductsView extends Component {
   };
 
   componentDidMount() {
+    this.props.getCategories();
     this.props.getProducts();
   }
 
@@ -105,7 +106,9 @@ class ProductsView extends Component {
           <Table.Cell>{item.name}</Table.Cell>
           <Table.Cell>{item.description}</Table.Cell>
           <Table.HeaderCell>{item.author}</Table.HeaderCell>
-          <Table.HeaderCell>{item.category}</Table.HeaderCell>
+          <Table.HeaderCell>
+            {this.props.categoryById(item.categoryId).name}
+          </Table.HeaderCell>
           <Table.HeaderCell>{item.stock}</Table.HeaderCell>
           <Table.HeaderCell>{item.price}</Table.HeaderCell>
           <Table.Cell>
@@ -187,10 +190,12 @@ const mapStateToProps = state => ({
   currentProduct: state.product.currentProduct,
   products: state.product.products,
   loading: createLoadingSelector(['GET_PRODUCTS'])(state),
-  modalLoading: createLoadingSelector(['GET_PRODUCT'])(state)
+  modalLoading: createLoadingSelector(['GET_PRODUCT'])(state),
+  categoryById: id => state.category.categories.find(item => item.id === id)
 });
 
 const mapDispatchToProps = dispatch => ({
+  getCategories: () => dispatch(categoryActions.getCategories()),
   getProducts: () => dispatch(productActions.getProducts()),
   getProduct: id => dispatch(productActions.getProduct(id)),
   deleteProduct: id => dispatch(productActions.deleteProduct(id))

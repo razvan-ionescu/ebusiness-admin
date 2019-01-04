@@ -41,6 +41,7 @@ const create = (baseURL = process.env.REACT_APP_API_URL) => {
   const patchCategory = (id, categoryObj) =>
     api.patch(`/categories/${id}`, categoryObj);
   const deleteCategory = id => api.delete(`/categories/${id}`);
+  const patchOrder = (id, orderObj) => api.patch(`/orders/${id}`, orderObj);
 
   return {
     postLogin,
@@ -55,7 +56,8 @@ const create = (baseURL = process.env.REACT_APP_API_URL) => {
     getCategory,
     postCategory,
     patchCategory,
-    deleteCategory
+    deleteCategory,
+    patchOrder
   };
 };
 
