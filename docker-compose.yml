@@ -1,0 +1,40 @@
+version: '3.5'
+
+services:
+  dev:
+    container_name: admin-dev
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '${DEV_PORT}:3000'
+    environment:
+      - NODE_ENV=development
+
+  prod:
+    container_name: admin-prod
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile-prod
+    ports:
+      - '${PROD_PORT}:80'
+    environment:
+      - NODE_ENV=production
+
+  test:
+    container_name: admin-test
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile-test
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    environment:
+      - NODE_ENV=test
+      - CI=true

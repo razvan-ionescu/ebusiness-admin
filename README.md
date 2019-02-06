@@ -1,5 +1,19 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Docker
+
+###Copy the example .env and config it
+
+``` cp .env.example .env ```
+
+### Docker Commands
+
+``` docker-compose up -d dev ``` spins up a development container
+
+``` docker-compose up test ``` spins up a testing container
+
+``` docker-compose up -d prod ``` spins up a production container
+
 ## Available Scripts
 
 In the project directory, you can run:
