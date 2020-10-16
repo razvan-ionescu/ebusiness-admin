@@ -62,7 +62,7 @@ class Login extends Component {
                   value={this.props.values.password}
                   onChange={this.props.handleChange('password')}
                   placeholder="Password"
-                  label="Password"
+                  label="Parola"
                   type="password"
                 />
               </Card.Content>

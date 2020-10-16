@@ -145,7 +145,7 @@ class ProductsView extends Component {
       <div className="section">
         <div>
           <Button
-            text="Add Product"
+            text="Adauga produs nou"
             type="primary"
             loading={this.props.modalLoading}
             onClick={() => this.openModal(this.state.currentProduct)}
@@ -154,14 +154,14 @@ class ProductsView extends Component {
         <Table>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Image</Table.HeaderCell>
-              <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-              <Table.HeaderCell>Author</Table.HeaderCell>
-              <Table.HeaderCell>Category</Table.HeaderCell>
-              <Table.HeaderCell>Stock</Table.HeaderCell>
-              <Table.HeaderCell>Price</Table.HeaderCell>
-              <Table.HeaderCell>Actions</Table.HeaderCell>
+              <Table.HeaderCell>Imagine</Table.HeaderCell>
+              <Table.HeaderCell>Denumire</Table.HeaderCell>
+              <Table.HeaderCell>Descriere</Table.HeaderCell>
+              <Table.HeaderCell>Producator</Table.HeaderCell>
+              <Table.HeaderCell>Categorie</Table.HeaderCell>
+              <Table.HeaderCell>Stoc (buc)</Table.HeaderCell>
+              <Table.HeaderCell>Pret (lei)</Table.HeaderCell>
+              <Table.HeaderCell>Optiuni</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>{tableBody}</Table.Body>

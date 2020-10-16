@@ -17,14 +17,17 @@ class OrdersView extends Component {
         <Table>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Status</Table.HeaderCell>
-              <Table.HeaderCell>Receipt Address</Table.HeaderCell>
-              <Table.HeaderCell>Delivery Address</Table.HeaderCell>
+              <Table.HeaderCell>Status Comanda</Table.HeaderCell>
+              <Table.HeaderCell>Adresa Facturare</Table.HeaderCell>
+              <Table.HeaderCell>Adresa Livrare</Table.HeaderCell>
               <Table.HeaderCell>Client</Table.HeaderCell>
-              <Table.HeaderCell>Number of products</Table.HeaderCell>
+              <Table.HeaderCell>Nr. produse</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
+            <Table.Row>
+                <Table.Cell>Numar comenzi: {this.props.orders.length}</Table.Cell>
+              </Table.Row>,
             {this.props.orders.length ? (
               this.props.orders.map(item => (
                 <Table.Row key={item.id}>
@@ -43,9 +46,10 @@ class OrdersView extends Component {
               ))
             ) : (
               <Table.Row>
-                <Table.Cell>No orders to display.</Table.Cell>
+                <Table.Cell>Numar comenzi: {this.props.orders.length}</Table.Cell>
               </Table.Row>
-            )}
+            )
+            }
           </Table.Body>
         </Table>
       </div>

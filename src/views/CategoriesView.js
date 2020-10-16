@@ -110,7 +110,7 @@ class CategoriesView extends Component {
       <div className="section">
         <div>
           <Button
-            text="Add Category"
+            text="Adauga categorie noua"
             type="primary"
             onClick={() => this.openModal(this.props.currentCategory)}
           />
@@ -118,9 +118,9 @@ class CategoriesView extends Component {
         <Table>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-              <Table.HeaderCell>Actions</Table.HeaderCell>
+              <Table.HeaderCell>Nume</Table.HeaderCell>
+              <Table.HeaderCell>Descriere</Table.HeaderCell>
+              <Table.HeaderCell>Optiuni</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>{tableBody}</Table.Body>

@@ -52,9 +52,9 @@ class ProductForm extends Component {
     return (
       <Modal
         visible={this.props.visible}
-        title={this.props.id ? 'Edit product' : 'Add product'}
-        successText="Save product"
-        cancelText="Cancel"
+        title={this.props.id ? 'Editeaza produs' : 'Adauga produs'}
+        successText="Salveaza"
+        cancelText="Anuleaza"
         actionSuccess={this.props.handleSubmit}
         actionCancel={this.actionCancel}
       >
@@ -63,39 +63,40 @@ class ProductForm extends Component {
             error={this.props.errors.name}
             value={this.props.values.name}
             onChange={this.props.handleChange('name')}
-            placeholder="Product name"
-            label="Name"
+            placeholder="Denumire produs"
+            label="Nume:"
             type="text"
           />
           <Input
             error={this.props.errors.author}
             value={this.props.values.author}
             onChange={this.props.handleChange('author')}
-            placeholder="Product author"
-            label="Author"
+            placeholder="Furnizor produs"
+            label="Furnizor:"
             type="text"
           />
+          <label>Specificatii:</label>
           <Input.Textarea
             error={this.props.errors.description}
             value={this.props.values.description}
             onChange={this.props.handleChange('description')}
-            placeholder="Product description"
-            label="Product description"
+            placeholder="Descriere produs"
+            label="Specificatii:"
           />
           <Input
             error={this.props.errors.stock}
             value={this.props.values.stock}
             onChange={this.props.handleChange('stock')}
-            placeholder="Product stock"
-            label="Stock"
+            placeholder="Cantitate produs (bucati)"
+            label="Stoc:"
             type="number"
           />
           <Input
             error={this.props.errors.price}
             value={this.props.values.price}
             onChange={this.props.handleChange('price')}
-            placeholder="Product price"
-            label="Price"
+            placeholder="Valoare monetara produs in lei"
+            label="Pret:"
             type="text"
           />
           <Select

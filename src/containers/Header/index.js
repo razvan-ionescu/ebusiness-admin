@@ -42,13 +42,13 @@ class Header extends Component {
         <div className={`navbar-menu ${navbarOpen}`}>
           <div className="navbar-start">
             <NavLink className="navbar-item" to="/">
-              Orders
+              Comenzi
             </NavLink>
             <NavLink className="navbar-item" to="/products">
-              Products
+              Produse
             </NavLink>
             <NavLink className="navbar-item" to="/categories">
-              Categories
+              Categorii
             </NavLink>
           </div>
           <div className="navbar-end">

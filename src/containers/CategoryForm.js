@@ -38,9 +38,9 @@ class CategoryForm extends Component {
     return (
       <Modal
         visible={this.props.visible}
-        title={this.props.id ? 'Edit category' : 'Add category'}
-        successText="Save category"
-        cancelText="Cancel"
+        title={this.props.id ? 'Editeaza categoria' : 'Adauga categorie noua'}
+        successText="Salveaza"
+        cancelText="Anulare"
         actionSuccess={this.props.handleSubmit}
         actionCancel={this.actionCancel}
         loading={this.props.categoryLoading}
@@ -51,16 +51,17 @@ class CategoryForm extends Component {
             error={this.props.errors.name}
             value={this.props.values.name}
             onChange={this.props.handleChange('name')}
-            placeholder="Category name"
-            label="Category name"
+            placeholder="Nume categorie"
+            label="Denumire:"
             type="text"
           />
+          <label>Descriere:</label>
           <Input.Textarea
             error={this.props.errors.description}
             value={this.props.values.description}
             onChange={this.props.handleChange('description')}
-            placeholder="Category description"
-            label="Category description"
+            placeholder="Ce fel de produse intra in acesta categorie"
+            label="descriere:"
           />
         </Modal.Content>
       </Modal>
